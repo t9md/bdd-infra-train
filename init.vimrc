@@ -1,7 +1,8 @@
 lcd <sfile>:h
-nnoremap <buffer> <M-p> :<C-u>TmuxDo rake provision<CR>
-nnoremap <buffer> <M-b> :<C-u>TmuxDo rake snap:back<CR>
-nnoremap <buffer> <F5> :<C-u>TmuxDo rake provision<CR>
-nnoremap <buffer> <S-F5> :<C-u>TmuxDo rake snap:back<CR>
-nnoremap <buffer> <F6> :<C-u>Vagrant rake test<CR>
-" set isk+=!,?
+let g:localrc_filename = 'init.vimrc'
+nnoremap <silent> <buffer> <M-p> :<C-u>call vimproc#system("rake provision")<CR>
+nnoremap <silent> <buffer> <M-b> :<C-u>call vimproc#system("rake snap:back")<CR>
+
+nnoremap <silent> <buffer> <F5> :<C-u>call vimproc#system("rake provision")<CR>
+nnoremap <silent> <buffer> <S-F5> :<C-u>call vimproc#system("rake snap:back")<CR>
+nnoremap <silent> <buffer> <F6> :<C-u>call vimproc#system("rake test")<CR>
