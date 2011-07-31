@@ -51,7 +51,22 @@ task :provision do
   Sh "vagrant provision"
 end
 
-desc "test"
-task :test do
-  Sh "ssh root@box1 'cd /vagrant/rake; rake test'"
+namespace :in do
+  desc "test"
+  task :test do
+    Sh "ssh root@box1 'cd /vagrant; rake in:box:test'"
+  end
+  namespace :box do
+    task :test do
+      Sh "cucumber -c features/file.feature"
+    end
+  end
 end
+
+namespace :out do
+  desc "test"
+  task :test do
+    Sh "cucumber -c features/ssh.feature"
+  end
+end
+
