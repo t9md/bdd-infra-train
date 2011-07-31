@@ -21,34 +21,33 @@ end
 
 namespace :snap do
   desc "list"
-  task :list do
-    Sh "vagrant snap list"
-  end
-
+  task(:list) { |t| Sh "vagrant #{t.name.sub(':',' ')}" }
   desc "take"
-  task :take do
-    Sh "vagrant snap take"
-  end
-
+  task(:take) { |t| Sh "vagrant #{t.name.sub(':',' ')}" }
   desc "back"
-  task :back do
-    Sh "vagrant snap back"
-  end
+  task(:back) { |t| Sh "vagrant #{t.name.sub(':',' ')}" }
 end
 
 desc "up"
-task :up do
-  Sh "vagrant up"
-end
-
-# desc "destroy"
-task :destroy do
-  Sh "vagrant destroy"
-end
-
+task(:up) { |t| Sh "vagrant #{t.name.sub(':',' ')}" }
+#desc "destroy"
+task(:destroy) { |t| Sh "vagrant #{t.name.sub(':',' ')}" }
 desc "provision"
-task :provision do
-  Sh "vagrant provision"
+task(:provision) { |t| Sh "vagrant #{t.name.sub(':',' ')}" }
+
+namespace :knife do
+  namespace :bootstrap do
+    desc "box3"
+    task(:box3) do |t|
+      role = %w(role[production] role[nagios_base] role[monitoring])
+      Sh "#{t.name.gsub(':',' ')} -r '#{role.join(",")}'"
+    end
+    desc "box4"
+    task(:box4) do |t|
+      role = %w(role[production] role[nagios_base])
+      Sh "#{t.name.gsub(':',' ')} -r '#{role.join(",")}'"
+    end
+  end
 end
 
 namespace :in do
